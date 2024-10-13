@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.springcloud.demo</groupId>
-	<artifactId>booking-receipts-ms</artifactId>
+	<artifactId>receipts-ms</artifactId>
 	<version>0.0.1</version>
-	<name>booking-receipt</name>
+	<name>receipts-ms</name>
 	<description>Bookings receipt microservice</description>
 	<url/>
 	<licenses>

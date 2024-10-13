@@ -4,7 +4,6 @@ WORKDIR /app
 
 COPY pom.xml ./
 
-# Descargar dependencias para acelerar futuras construcciones
 RUN mvn dependency:go-offline
 
 COPY ./src/main ./src/main
@@ -19,8 +18,8 @@ WORKDIR /app
 RUN apt-get update
 RUN apt-get install libfreetype6-dev -y
 
-COPY --from=build /app/target/booking-receipts-ms-0.0.1.jar /app/booking-receipts-ms-0.0.1.jar
+COPY --from=build /app/target/receipts-ms-0.0.1.jar /app/receipts-ms-0.0.1.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "/app/booking-receipts-ms-0.0.1.jar"]
+ENTRYPOINT ["java", "-jar", "/app/receipts-ms-0.0.1.jar"]
