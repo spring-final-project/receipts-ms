@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,12 +29,12 @@ public class BookingReceiptService {
     public String createReceipt(BookingDTO bookingDTO, RoomDTO roomDTO, UserDTO ownerDTO, UserDTO userDTO) {
         Map<String, Object> params = new HashMap<>();
 
-        params.put("current_date", DateUtils.formatDate(LocalDateTime.parse(bookingDTO.getCreatedAt())));
+        params.put("current_date", DateUtils.formatDate(OffsetDateTime.parse(bookingDTO.getCreatedAt())));
         params.put("room_name", roomDTO.getName() == null ? roomDTO.getNum().toString() : roomDTO.getName());
         params.put("room_description", roomDTO.getDescription() == null ? "Sin descripción" : roomDTO.getDescription());
         params.put("room_owner", ownerDTO.getName());
-        params.put("check_in", DateUtils.formatDate(LocalDateTime.parse(bookingDTO.getCheckIn())));
-        params.put("check_out", DateUtils.formatDate(LocalDateTime.parse(bookingDTO.getCheckOut())));
+        params.put("check_in", DateUtils.formatDate(OffsetDateTime.parse(bookingDTO.getCheckIn())));
+        params.put("check_out", DateUtils.formatDate(OffsetDateTime.parse(bookingDTO.getCheckOut())));
         params.put("user_name", userDTO.getName());
         params.put("check_img", getClass().getResourceAsStream("/templates/static/check.svg"));
         params.put("logo_img", getClass().getResourceAsStream("/templates/static/spring-logo.svg"));

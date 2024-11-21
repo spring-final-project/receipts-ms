@@ -3,12 +3,13 @@ package com.springcloud.demo.bookingreceipt.utils;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
 public class DateUtils {
 
-    public static String formatDate(LocalDateTime date){
+    public static String formatDate(OffsetDateTime date){
         String dayName = date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.of("es", "ES"));
         String monthName = date.getMonth().getDisplayName(TextStyle.FULL, Locale.of("es", "ES"));
         String dateNum = String.format("%2d", date.getDayOfMonth()).replace(' ', '0');
