@@ -13,13 +13,10 @@ import static org.mockito.BDDMockito.*;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.InputStream;
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,9 +35,9 @@ class BookingReceiptServiceTest {
     void createReceipt() {
         BookingDTO bookingDTO = BookingDTO.builder()
                 .id(UUID.randomUUID().toString())
-                .checkIn(LocalDateTime.now().plusDays(1).toString())
-                .checkOut(LocalDateTime.now().plusDays(3).toString())
-                .createdAt(LocalDateTime.now().toString())
+                .checkIn(OffsetDateTime.now().plusDays(1).toString())
+                .checkOut(OffsetDateTime.now().plusDays(3).toString())
+                .createdAt(OffsetDateTime.now().toString())
                 .build();
         RoomDTO roomDTO = RoomDTO.builder()
                 .id(UUID.randomUUID())
