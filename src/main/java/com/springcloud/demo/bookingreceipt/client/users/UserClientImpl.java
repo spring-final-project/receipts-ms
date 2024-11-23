@@ -25,7 +25,7 @@ public class UserClientImpl implements UserClient {
 
     UserDTO findUserByIdFallback(String id, Throwable e) throws Exception {
         if(!(e instanceof FeignException.FeignClientException feignClientException)){
-            log.error("Rooms service not available. Try later");
+            log.error("Users service not available. Try later");
         } else {
 
             Map body = new ObjectMapper().readValue(feignClientException.contentUTF8(), Map.class);

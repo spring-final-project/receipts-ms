@@ -47,7 +47,6 @@ public class BookingReceiptService {
 
         byte [] report = reportService.generateReport(template,params);
 
-        String key = imagesProviderService.uploadFile(report, "receipts/" + bookingDTO.getId() + ".pdf");
-        return "https://" + bucketName + ".s3.sa-east-1.amazonaws.com/" + key;
+        return imagesProviderService.uploadFile(report, "receipts/" + bookingDTO.getId() + ".pdf");
     }
 }

@@ -24,7 +24,7 @@ public class HandlerConsumer {
     }
 
     /**
-     * Work un lambda environment
+     * Work on lambda environment
      * It will be ignored in local
      */
     @Bean
