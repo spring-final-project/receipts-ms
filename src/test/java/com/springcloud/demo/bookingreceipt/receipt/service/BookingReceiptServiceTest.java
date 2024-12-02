@@ -33,24 +33,27 @@ class BookingReceiptServiceTest {
 
     @Test
     void createReceipt() {
-        BookingDTO bookingDTO = BookingDTO.builder()
-                .id(UUID.randomUUID().toString())
-                .checkIn(OffsetDateTime.now().plusDays(1).toString())
-                .checkOut(OffsetDateTime.now().plusDays(3).toString())
-                .createdAt(OffsetDateTime.now().toString())
+        UserDTO ownerDTO = UserDTO.builder()
+                .id(UUID.randomUUID())
+                .name("Owner")
                 .build();
         RoomDTO roomDTO = RoomDTO.builder()
                 .id(UUID.randomUUID())
                 .name("Suite")
                 .description("Lorem ipsum dolor sit amet")
-                .build();
-        UserDTO ownerDTO = UserDTO.builder()
-                .id(UUID.randomUUID())
-                .name("Owner")
+                .owner(ownerDTO)
                 .build();
         UserDTO userDTO = UserDTO.builder()
                 .id(UUID.randomUUID())
                 .name("Customer")
+                .build();
+        BookingDTO bookingDTO = BookingDTO.builder()
+                .id(UUID.randomUUID().toString())
+                .checkIn(OffsetDateTime.now().plusDays(1).toString())
+                .checkOut(OffsetDateTime.now().plusDays(3).toString())
+                .createdAt(OffsetDateTime.now().toString())
+                .room(roomDTO)
+                .user(userDTO)
                 .build();
 
         byte[] report = new byte[0];
@@ -58,7 +61,7 @@ class BookingReceiptServiceTest {
         given(reportService.generateReport(any(InputStream.class), anyMap())).willReturn(report);
         given(imagesProviderService.uploadFile(any(byte[].class), anyString())).willReturn("s3_url");
 
-        String url = bookingReceiptService.createReceipt(bookingDTO, roomDTO, ownerDTO, userDTO);
+        String url = bookingReceiptService.createReceipt(bookingDTO);
 
         verify(reportService).generateReport(any(InputStream.class), anyMap());
         verify(imagesProviderService).uploadFile(eq(report), anyString());

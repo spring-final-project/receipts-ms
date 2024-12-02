@@ -20,36 +20,6 @@ spring:
       BOOKING_CREATED_TOPIC: BOOKING_CREATED_TOPIC
       BOOKING_RECEIPT_GENERATED_TOPIC: BOOKING_RECEIPT_GENERATED_TOPIC
 
-resilience4j:
-  circuitbreaker:
-    instances:
-      users-service:
-        register-health-indicator: true
-        sliding-window-size: 5
-        sliding-window-type: count_based
-        failure-rate-threshold: 50
-        wait-duration-in-open-state: 10s
-        automatic-transition-from-open-to-half-open-enabled: true
-        permitted-number-of-calls-in-half-open-state: 3
-        ignored-exceptions:
-          - feign.FeignException$FeignClientException
-      rooms-service:
-        register-health-indicator: true
-        sliding-window-size: 5
-        sliding-window-type: count_based
-        failure-rate-threshold: 50
-        wait-duration-in-open-state: 10s
-        automatic-transition-from-open-to-half-open-enabled: true
-        permitted-number-of-calls-in-half-open-state: 3
-        ignored-exceptions:
-          - feign.FeignException$FeignClientException
-          -
-client:
-  users-ms:
-    url: ${USERS_MS_URL}
-  rooms-ms:
-    url: ${ROOMS_MS_URL}
-
 cloud:
   aws:
     s3:
