@@ -15,12 +15,18 @@ public class ReportService {
     byte[] generateReport(InputStream template, Map<String, Object> params) {
 
         try {
+            System.out.println("--- generateReport ---");
+            System.out.println("template = " + template);
+            System.out.println("template.toString() = " + template.toString());
             JasperReport jasperReport = JasperCompileManager.compileReport(template);
+            System.out.println("--- compiled ---");
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+            System.out.println("--- filled ---");
             return JasperExportManager.exportReportToPdf(jasperPrint);
 
         } catch (JRException e) {
             log.error(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }

@@ -5,6 +5,7 @@ import com.springcloud.demo.bookingreceipt.messaging.MessagingProducer;
 import com.springcloud.demo.bookingreceipt.receipt.service.BookingReceiptService;
 import com.springcloud.demo.bookingreceipt.utils.JsonUtils;
 import lombok.RequiredArgsConstructor;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +22,16 @@ public class HandlerService {
     public void handleBookingCreated(String bookingJson) {
         BookingDTO bookingDTO = JsonUtils.fromJson(bookingJson, BookingDTO.class);
 
-        String url = bookingReceiptService.createReceipt(bookingDTO);
+        try {
+            String url = bookingReceiptService.createReceipt(bookingDTO);
 
-        if(url != null){
-            bookingDTO.setReceiptUrl(url);
-            messagingProducer.sendMessage(bookingReceiptGeneratedTopic, JsonUtils.toJson(bookingDTO));
+            if (url != null) {
+                bookingDTO.setReceiptUrl(url);
+                messagingProducer.sendMessage(bookingReceiptGeneratedTopic, JsonUtils.toJson(bookingDTO));
+            }
+        }
+        catch (JRException e) {
+            e.printStackTrace();
         }
     }
 }
