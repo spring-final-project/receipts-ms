@@ -20,6 +20,16 @@ spring:
       BOOKING_CREATED_TOPIC: BOOKING_CREATED_TOPIC
       BOOKING_RECEIPT_GENERATED_TOPIC: BOOKING_RECEIPT_GENERATED_TOPIC
 
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring-application.instance_id:${random.value}}
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://${EUREKA_HOST}:${EUREKA_PORT}/eureka/
+
 cloud:
   aws:
     s3:
