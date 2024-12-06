@@ -5,6 +5,9 @@ spring:
     name: receipts-ms
   config:
     import: optional:file:.env[.properties]
+  web:
+    resources:
+      static-locations: file:images/
   kafka:
     bootstrap-servers: ${KAFKA_URL}
     consumer:
